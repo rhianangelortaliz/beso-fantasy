@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BESO FANTASY</title>
+    <!-- Font Awesome 6 (free) for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: radial-gradient(circle at 20% 30%, #0b1035, #010214); /* original deep blue */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* sparkling stars / hidden mickey silhouette (original) */
+        body::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 15% 25%, #fffacd, transparent),
+                radial-gradient(3px 3px at 72% 18%, #ffe68f, transparent),
+                radial-gradient(2px 2px at 88% 70%, #ffd175, transparent),
+                radial-gradient(4px 4px at 45% 85%, #ffdb7c, transparent),
+                radial-gradient(3px 3px at 30% 60%, #ffe6a3, transparent),
+                radial-gradient(5px 5px at 92% 43%, #fff2b5, transparent),
+                /* mickey ears + head (barely visible) */
+                radial-gradient(22px 22px at 70% 78%, #202758, transparent 75%),
+                radial-gradient(22px 22px at 82% 68%, #202758, transparent 75%),
+                radial-gradient(30px 26px at 92% 73%, #1f2655, transparent 80%);
+            background-repeat: no-repeat;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        /* fairy dust floating (original) */
+        .dust {
+            position: absolute;
+            inset: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" opacity="0.25"><circle cx="50" cy="80" r="2.2" fill="%23ffeaac"/><circle cx="260" cy="150" r="2.8" fill="%23ffdb7c"/><circle cx="120" cy="30" r="1.5" fill="%23ffffff"/><circle cx="190" cy="260" r="2" fill="%23ffcc66"/><circle cx="30" cy="250" r="2.5" fill="%23ffcd7e"/></svg>');
+            background-size: 350px 350px;
+            animation: floatDust 30s infinite alternate ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes floatDust {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.2; }
+            100% { transform: translate(-20px, -15px) scale(1.1); opacity: 0.45; }
+        }
+
+        /* main card – keeping original disney colors (deep blue/purple with gold) */
+        .anthro-card {
+            background: rgba(10, 14, 36, 0.8);  /* original dark blue */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 200, 70, 0.25); /* gold border */
+            border-radius: 52px 52px 40px 40px;
+            box-shadow: 0 30px 50px #000000b0, 0 0 0 2px rgba(255, 215, 0, 0.2) inset, 0 0 30px #ffbf40;
+            width: 460px;
+            max-width: 92%;
+            padding: 2.5rem 2.2rem 2.2rem;
+            position: relative;
+            z-index: 10;
+            transition: transform 0.2s;
+        }
+
+        .anthro-card:hover {
+            border-color: #ffcf7a;
+            box-shadow: 0 35px 60px #030110, 0 0 30px #ffbb33;
+        }
+
+        /* header with castle and mickey replaced by anthropology title but keeping colors */
+        .explorer-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 2rem;
+            color: #ffdd9e;  /* original gold */
+        }
+
+        .explorer-header i {
+            font-size: 2.6rem;
+            filter: drop-shadow(0 0 8px #f1c40f); /* gold glow */
+        }
+
+        .explorer-header h2 {
+            font-size: 2.4rem;
+            font-weight: 500;
+            background: linear-gradient(145deg, #faeac6, #ffd966); /* original gold gradient */
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 5px #00000070;
+        }
+
+        /* form field */
+        .input-field {
+            margin-bottom: 1.8rem;
+        }
+
+        .input-field label {
+            display: block;
+            color: #ffdba5; /* original light gold */
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .icon-wrapper {
+            position: relative;
+        }
+
+        .icon-wrapper i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ffbc5c; /* original gold */
+            font-size: 1.4rem;
+            width: 28px;
+            text-align: center;
+            filter: drop-shadow(0 0 4px #ff9f1a);
+        }
+
+        .icon-wrapper input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5); /* original dark */
+            border: 1.5px solid #63593b; /* original bronze */
+            border-radius: 60px;
+            padding: 16px 20px 16px 58px;
+            font-size: 1.1rem;
+            color: #f7f2dd; /* original light */
+            outline: none;
+            transition: 0.2s;
+            box-shadow: 0 6px 12px #00000060, inset 0 0 8px #1e1a10;
+        }
+
+        .icon-wrapper input:focus {
+            border-color: #f0b548; /* original gold */
+            box-shadow: 0 0 20px #f5b342, inset 0 0 8px #5e4c26;
+            background: #0b0d1e;
+        }
+
+        .icon-wrapper input::placeholder {
+            color: #a0987a; /* original tan */
+            font-style: italic;
+        }
+
+        /* remember + forgot (original colors) */
+        .options-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0.5rem 0 2.2rem 0;
+            color: #d6c291;
+            font-size: 0.95rem;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .check-item input {
+            accent-color: #f5b342; /* original gold */
+            width: 18px;
+            height: 18px;
+        }
+
+        .check-item label {
+            color: #ecd9aa; /* original light gold */
+            cursor: pointer;
+        }
+
+        .help-link a {
+            color: #ffdc9f; /* original light gold */
+            text-decoration: none;
+            border-bottom: 1px dashed #b89850;
+        }
+
+        .help-link a:hover {
+            color: #fff2cf;
+            border-bottom: 1px solid #ffbb33;
+        }
+
+        /* ——— BUTTON ROW: LOGIN & SIGN UP SIDE BY SIDE ——— */
+        .button-row {
+            display: flex;
+            gap: 18px;
+            margin-bottom: 28px;
+            width: 100%;
+        }
+
+        .button-row .btn-anthro {
+            flex: 1;
+            background: linear-gradient(145deg, #202a5a, #121843); /* original deep blue */
+            border: 2px solid #c99f47; /* original gold */
+            color: #ffecb3; /* original light gold */
+            padding: 16px 12px;
+            font-size: 1.4rem;
+            font-weight: 600;
+            border-radius: 60px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            box-shadow: 0 7px 0 #0a0c1f, 0 5px 20px #fabc2e; /* original shadows */
+            transition: all 0.1s ease-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .button-row .btn-anthro i {
+            font-size: 1.7rem;
+            color: #fedb86; /* original gold */
+            transition: transform 0.2s;
+        }
+
+        .button-row .btn-anthro:hover {
+            background: linear-gradient(145deg, #2d3670, #1b2255); /* original lighter blue */
+            border-color: #ffda88;
+            color: #fffae5;
+            box-shadow: 0 4px 0 #0a0c1f, 0 0 30px #ffcc66;
+            transform: translateY(3px);
+        }
+
+        .button-row .btn-anthro:hover i {
+            transform: rotate(3deg) scale(1.1);
+            color: #fff2b5;
+        }
+
+        .button-row .btn-anthro:active {
+            transform: translateY(9px);
+            box-shadow: 0 2px 0 #0a0c1f, 0 0 40px #ffaa33;
+        }
+
+        /* sign up button gets the same colors, just slightly different gradient (but same palette) */
+        .button-row .btn-anthro.signup {
+            background: linear-gradient(145deg, #1e2b4f, #0f173b); /* original variant */
+            border-color: #ac8f50;
+            box-shadow: 0 7px 0 #0f0d24, 0 5px 20px #cbb26a;
+        }
+
+        .button-row .btn-anthro.signup:hover {
+            background: linear-gradient(145deg, #26406e, #141f4a);
+            border-color: #efc777;
+        }
+
+        /* artifact icons (replacing realm icons) but keeping gold colors */
+        .artifact-icons {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            margin: 10px 0 12px;
+            font-size: 1.5rem;
+            color: #b89f62; /* original gold-ish */
+        }
+
+        .artifact-icons i {
+            transition: 0.2s;
+            cursor: default;
+        }
+
+        .artifact-icons i:hover {
+            color: #ffcb6b;
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 8px #ffb82e);
+        }
+
+        .copyright {
+            text-align: center;
+            color: #8f824b; /* original muted gold */
+            font-size: 0.85rem;
+            border-top: 1px dashed #5f552f;
+            padding-top: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        .copyright span {
+            color: #c2a451; /* original gold */
+        }
+    </style>
+</head>
+<body>
+    <div class="dust"></div>
+
+    <div class="anthro-card">
+        <!-- BESO FANTASY header with icons (keeping the color scheme) -->
+        <div class="explorer-header">
+            <i class="fas fa-skull"></i>           <!-- fossil icon -->
+            <h2>BESO FANTASY</h2>
+            <i class="fas fa-trowel"></i>          <!-- excavation tool -->
+        </div>
+
+        <!-- LOGIN FORM -->
+        <form action="homepage.html" method="get">
+            <!-- Username field -->
+            <div class="input-field">
+                <label for="username"><i class="fa-solid fa-user" style="font-size: 0.8rem;"></i> USERNAME</label>
+                <div class="icon-wrapper">
+                    <i class="fas fa-user-graduate"></i>
+                    <input type="text" id="username" name="username" placeholder="e.g., mary.leakey" required>
+                </div>
+            </div>
+
+            <!-- Password field -->
+            <div class="input-field">
+                <label for="password"><i class="fa-solid fa-lock"></i> PASSWORD</label>
+                <div class="icon-wrapper">
+                    <i class="fas fa-key"></i>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                </div>
+            </div>
+
+            <!-- remember & forgot -->
+            <div class="options-row">
+                <div class="check-item">
+                    <input type="checkbox" id="remember" checked>
+                    <label for="remember"><i class="fa-regular fa-star" style="color: #f5b342;"></i> Remember me</label>
+                </div>
+                <div class="help-link">
+                    <a href="#"><i class="fa-regular fa-circle-question"></i> Forgot password?</a>
+                </div>
+            </div>
+
+            <!-- BUTTON ROW: LOGIN AND SIGN UP SIDE BY SIDE -->
+            <div class="button-row">
+                <!-- LOGIN button (submit) -->
+                <button type="submit" class="btn-anthro">
+                    <i class="fas fa-wand-sparkles"></i> LOGIN
+                </button>
+
+                <!-- SIGN UP button -->
+                <button type="button" class="btn-anthro signup" onclick="window.location.href='enrollment.html';">
+                    <i class="fas fa-puzzle-piece"></i> SIGN UP
+                </button>
+            </div>
+
+            <!-- artifact icons -->
+            <div class="artifact-icons">
+                <i class="fas fa-bone" title="Fossil"></i>
+                <i class="fas fa-mask" title="Ritual mask"></i>
+                <i class="fas fa-hand-holding-heart" title="Cultural heritage"></i>
+                <i class="fas fa-arrow-up-wide-short" title="Stratigraphy"></i>
+            </div>
+
+            <div class="copyright">
+                <span>✧ discover · document · understand ✧</span><br>
+                <i class="fa-solid fa-circle" style="font-size: 0.4rem; color: #f5b342;"></i> © anthropology society
+            </div>
+        </form>
+    </div>
+</body>
+</html>

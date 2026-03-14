@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DepEd Enrollment Form with Disney Magic</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', 'Helvetica', sans-serif;
+        }
+
+        body {
+            background: #0a1f33;
+            background-image: radial-gradient(circle at 10% 20%, #2b5270 1px, transparent 1px),
+                              radial-gradient(circle at 90% 70%, #f0c27b 2px, transparent 2px);
+            background-size: 40px 40px, 60px 60px;
+            padding: 30px 15px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* main form container - official DepEd look with subtle Disney magic */
+        .deped-form {
+            max-width: 1200px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 0 2px #c0a16b, 0 0 0 6px #8b5a2b;
+            padding: 30px 35px;
+            position: relative;
+            border: 1px solid #ffd700;
+        }
+
+        /* very subtle mickey pattern watermark */
+        .deped-form::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" opacity="0.03"><circle cx="30" cy="30" r="10" fill="%23c49a6c"/><circle cx="14" cy="14" r="7" fill="%23c49a6c"/><circle cx="46" cy="14" r="7" fill="%23c49a6c"/></svg>');
+            background-size: 120px 120px;
+            pointer-events: none;
+            border-radius: 20px;
+        }
+
+        /* DepEd official header with logo */
+        .deped-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 20px;
+            border-bottom: 4px double #8b5a2b;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .deped-logo {
+            width: 98px;
+            height: 98px;
+            background: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid #ffd966;
+            box-shadow: 0 0 0 2px #8b5a2b;
+            overflow: hidden;
+        }
+
+        .deped-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+        }
+
+        .logo-text {
+            font-weight: bold;
+            color: #003366;
+        }
+
+        .logo-text h2 {
+            font-size: 1.6rem;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .logo-text p {
+            color: #8b5a2b;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .header-right {
+            margin-left: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+            text-align: right;
+        }
+
+        .rev-date {
+            background: #f0e6d2;
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            border: 1px solid #8b5a2b;
+            display: inline-block;
+        }
+
+        .annex-badge {
+            background: #8b5a2b;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: bold;
+            font-size: 1.5rem;
+            border: 3px solid #ffd966;
+            box-shadow: 0 4px 0 #4d2f1a;
+        }
+
+        .not-for-sale {
+            background: #b22222;
+            color: #ffd700;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            border: 2px solid #ffb347;
+            transform: rotate(-1deg);
+            display: inline-block;
+        }
+
+        @media (max-width: 860px) {
+            .deped-header {
+                align-items: center;
+            }
+
+            .logo-area {
+                min-width: 100%;
+                justify-content: center;
+            }
+
+            .header-right {
+                width: 100%;
+                align-items: center;
+                text-align: center;
+                margin-left: 0;
+            }
+        }
+
+        /* school year row */
+        .school-year-row {
+            background: #e6d5b8;
+            padding: 15px 25px;
+            border-radius: 50px;
+            margin: 20px 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 30px;
+            border: 2px solid #8b5a2b;
+            box-shadow: inset 0 2px 5px #fff6e5, 0 6px 0 #6b4f2e;
+        }
+
+        .school-year-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        .school-year-item input {
+            padding: 8px 15px;
+            border-radius: 40px;
+            border: 2px solid #8b5a2b;
+            width: 90px;
+            text-align: center;
+            font-weight: bold;
+            background: #fff9ed;
+        }
+
+        .grade-checkboxes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px 20px;
+            margin-left: auto;
+        }
+
+        .grade-checkboxes label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: #faf0dd;
+            padding: 5px 12px;
+            border-radius: 40px;
+            border: 1px solid #b47d56;
+        }
+
+        /* LRN and returning (Balik-Aral) row */
+            </div>
+        .LRN-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            background: #f5e9d7;
+            padding: 15px 25px;
+            border-radius: 50px;
+            margin: 20px 0;
+            border: 2px solid #b47d56;
+        }
+
+        .lbr-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .lbr-group span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 600;
+        }
+
+        /* instructions */
+        .instructions {
+            background: #1e3b5c;
+            color: #ffefd0;
+            padding: 15px 25px;
+            border-radius: 60px;
+            font-size: 1rem;
+            border: 3px solid #f0b87b;
+            box-shadow: 0 6px 0 #0a1e30;
+            margin: 25px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .instructions .magic-star {
+            font-size: 2rem;
+            filter: drop-shadow(0 2px 2px gold);
+        }
+
+        /* section titles */
+        .section-title {
+            background: #1e3b5c;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px 50px 20px 20px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 30px 0 20px;
+            display: inline-block;
+            border: 3px solid #f7c77b;
+            box-shadow: 0 6px 0 #0a1e30;
+        }
+
+        .section-title span {
+            font-size: 2rem;
+            margin-right: 10px;
+        }
+
+        /* form grid */
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .field {
+            flex: 1 1 200px;
+        }
+
+        .field label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #1e3b5c;
+            margin-bottom: 4px;
+        }
+
+        .field input, .field select {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 40px;
+            border: 2px solid #8b5a2b;
+            background: #fffdf5;
+            font-size: 1rem;
+            box-shadow: inset 1px 1px 5px #ddd, 0 3px 0 #b47d56;
+        }
+
+        .field input:focus {
+            border-color: #f0b87b;
+            outline: none;
+            box-shadow: inset 1px 1px 5px #ddd, 0 0 0 3px #f7d9a0, 0 3px 0 #b47d56;
+        }
+
+        /* inline radio/checkbox groups */
+        .inline-group {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 25px;
+            background: #f5ebd9;
+            padding: 15px 25px;
+            border-radius: 50px;
+            margin: 15px 0;
+            border: 2px solid #b47d56;
+        }
+
+        .inline-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        .inline-item input {
+            width: 20px;
+            height: 20px;
+            accent-color: #8b5a2b;
+        }
+
+        /* disability grid */
+        .disability-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 12px;
+            background: #f5ebd9;
+            padding: 25px;
+            border-radius: 50px;
+            border: 2px solid #b47d56;
+            margin: 20px 0;
+        }
+
+        .disability-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .disability-item input {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* address blocks */
+        .address-block {
+            background: #f5ebd9;
+            border-radius: 50px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 3px solid #8b5a2b;
+        }
+
+        .address-header {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1e3b5c;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* parents table */
+        .parents-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .parents-table th {
+            text-align: left;
+            padding: 10px;
+            background: #1e3b5c;
+            color: white;
+            border-radius: 30px 30px 0 0;
+        }
+
+        .parents-table td {
+            padding: 10px;
+            border-bottom: 2px solid #d4b28c;
+        }
+
+        .parents-table input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 30px;
+            border: 2px solid #8b5a2b;
+            background: #fffdf5;
+        }
+
+        /* returning learners section */
+        .returning-section {
+            background: #e6d5b8;
+            border-radius: 50px;
+            padding: 25px;
+            margin: 30px 0;
+            border: 4px solid #8b5a2b;
+            box-shadow: 0 8px 0 #5a3f24;
+        }
+
+        .returning-title {
+            font-size: 1.8rem;
+            color: #1e3b5c;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* shs row */
+        .shs-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            background: #f5ebd9;
+            padding: 20px;
+            border-radius: 50px;
+            margin: 20px 0;
+            border: 2px solid #b47d56;
+        }
+
+        /* modalities grid */
+        .modality-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            background: #f5ebd9;
+            padding: 25px;
+            border-radius: 50px;
+            border: 3px solid #b47d56;
+            margin: 20px 0;
+        }
+
+        .modality-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* signature area */
+        .signature-area {
+            background: #f5ebd9;
+            border-radius: 70px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 4px solid #8b5a2b;
+        }
+
+        .signature-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .signature-lines {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .signature-line {
+            flex: 1 1 250px;
+            border-bottom: 2px dashed #8b5a2b;
+            padding-bottom: 8px;
+            font-weight: 600;
+        }
+
+        /* disney footer */
+        .disney-footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #8b5a2b;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-top: 2px solid #f0c27b;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="deped-form">
+        <!-- Official DepEd Header with Logo -->
+        <div class="deped-header">
+            <div class="logo-area">
+                <div class="deped-logo">
+                    <img src="DEPED.png" alt="Department of Education Logo">
+                </div>
+                <div class="logo-text">
+                    <h2>Department of Education</h2>
+                    <p>REPUBLIC OF THE PHILIPPINES</p>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="rev-date">Revised as of 03/27/2023</div>
+                <div class="annex-badge">ANNEX 1</div>
+                <div class="not-for-sale">⛔ NOT FOR SALE ⛔</div>
+            </div>
+        </div>
+
+        <!-- School Year and Grade Level -->
+        <div class="school-year-row">
+            <div class="school-year-item">
+                <label>School Year:</label>
+                <input type="text" value="2025" maxlength="4" size="4"> - <input type="text" value="2026" maxlength="4" size="4">
+            </div>
+            <div class="grade-checkboxes">
+                <label><input type="checkbox"> K</label>
+                <label><input type="checkbox"> 1</label>
+                <label><input type="checkbox"> 2</label>
+                <label><input type="checkbox"> 3</label>
+                <label><input type="checkbox"> 4</label>
+                <label><input type="checkbox"> 5</label>
+                <label><input type="checkbox"> 6</label>
+                <label><input type="checkbox"> 7</label>
+                <label><input type="checkbox"> 8</label>
+                <label><input type="checkbox"> 9</label>
+                <label><input type="checkbox"> 10</label>
+                <label><input type="checkbox"> 11</label>
+                <label><input type="checkbox"> 12</label>
+            </div>
+        </div>
+
+        <!-- LRN and Returning (Balik-Aral) -->
+        <div class="LRN-row">
+            <div class="lbr-group">
+                <span>1. With LRN?</span>
+                <span><input type="radio" name="LRN"> Yes</span>
+                <span><input type="radio" name="LRN" checked> No</span>
+            </div>
+            <div class="LRN-group">
+                <span>2. Returning (Balik-Aral)</span>
+                <span><input type="radio" name="balik"> Yes</span>
+                <span><input type="radio" name="balik" checked> No</span>
+            </div>
+        </div>
+
+        <!-- Instructions with Disney touch -->
+        <div class="instructions">
+            <span class="magic-star">✨</span>
+            <strong>INSTRUCTIONS:</strong> Print legibly all information required in CAPITAL letters. Submit accomplished form to the Person-in-Charge/Registrar/Class Adviser. Use black or blue pen only.
+            <span class="magic-star">✨</span>
+        </div>
+
+        <!-- LEARNER INFORMATION Section -->
+        <div class="section-title"><span>👤</span> LEARNER INFORMATION</div>
+
+        <div class="form-row">
+            <div class="field" style="flex:2">
+                <label>PSA Birth Certificate No. (if available upon registration)</label>
+                <input type="text" placeholder="Enter PSA number">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="field">
+                <label>Last Name</label>
+                <input type="text" placeholder="Last Name">
+            </div>
+            <div class="field">
+                <label>First Name</label>
+                <input type="text" placeholder="First Name">
+            </div>
+            <div class="field">
+                <label>Middle Name</label>
+                <input type="text" placeholder="Middle Name">
+            </div>
+            <div class="field">
+                <label>Extension Name (e.g., Jr., III)</label>
+                <input type="text" placeholder="Extension">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="field">
+                <label>Learner Reference No. (LRN)</label>
+                <input type="text" placeholder="LRN">
+            </div>
+            <div class="field">
+                <label>Birthdate (mm/dd/yyyy)</label>
+                <input type="text" placeholder="MM/DD/YYYY">
+            </div>
+            <div class="field">
+                <label>Sex</label>
+                <select>
+                    <option>Male</option>
+                    <option>Female</option>
+                </select>
+            </div>
+            <div class="field">
+                <label>Age</label>
+                <input type="text" placeholder="Age">
+            </div>
+            <div class="field">
+                <label>Place of Birth (Municipality/City)</label>
+                <input type="text" placeholder="Place of Birth">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="field">
+                <label>Mother Tongue</label>
+                <input type="text" placeholder="Mother Tongue">
+            </div>
+        </div>
+
+        <!-- Indigenous Peoples -->
+        <div class="inline-group">
+            <div class="inline-item">
+                <input type="radio" name="ip"> Yes
+            </div>
+            <div class="inline-item">
+                <input type="radio" name="ip" checked> No
+            </div>
+            <span style="font-weight:600;">Belonging to any Indigenous Peoples (IP) Community/Indigenous Cultural Community?</span>
+        </div>
+
+        <div class="form-row">
+            <div class="field">
+                <label>If Yes, please specify:</label>
+                <input type="text" placeholder="Specify IP community">
+            </div>
+        </div>
+
+        <!-- 4Ps -->
+        <div class="inline-group">
+            <div class="inline-item">
+                <input type="radio" name="ap"> Yes
+            </div>
+            <div class="inline-item">
+                <input type="radio" name="ap" checked> No
+            </div>
+            <span style="font-weight:600;">Is your family a beneficiary of 4Ps?</span>
+        </div>
+
+        <div class="form-row">
+            <div class="field">
+                <label>If Yes, write the 4Ps Household ID Number below</label>
+                <input type="text" placeholder="4Ps ID Number">
+            </div>
+        </div>
+
+        <!-- Learner with Disability -->
+        <div class="inline-group">
+            <div class="inline-item">
+                <input type="radio" name="disability"> Yes
+            </div>
+            <div class="inline-item">
+                <input type="radio" name="disability" checked> No
+            </div>
+            <span style="font-weight:600;">Is the child a Learner with Disability?</span>
+        </div>
+
+        <!-- Disability Types (exactly as in PDF) -->
+        <div class="disability-grid">
+            <div class="disability-item"><input type="checkbox"> Visual Impairment (a. blind / b. low vision)</div>
+            <div class="disability-item"><input type="checkbox"> Hearing Impairment</div>
+            <div class="disability-item"><input type="checkbox"> Learning Disability</div>
+            <div class="disability-item"><input type="checkbox"> Intellectual Disability</div>
+            <div class="disability-item"><input type="checkbox"> Autism Spectrum Disorder</div>
+            <div class="disability-item"><input type="checkbox"> Emotional-Behavioral Disorder</div>
+            <div class="disability-item"><input type="checkbox"> Orthopedic/Physical Handicap</div>
+            <div class="disability-item"><input type="checkbox"> Speech/Language Disorder</div>
+            <div class="disability-item"><input type="checkbox"> Cerebral Palsy</div>
+            <div class="disability-item"><input type="checkbox"> Special Health Problem/Chronic Disease (e.g., Cancer)</div>
+            <div class="disability-item"><input type="checkbox"> Multiple Disorder</div>
+        </div>
+
+        <!-- Current Address -->
+        <div class="address-block">
+            <div class="address-header">
+                <span>🏠</span> Current Address
+            </div>
+            <div class="form-row">
+                <div class="field"><label>House No.</label><input placeholder="House No."></div>
+                <div class="field"><label>Site/Street Name</label><input placeholder="Street Name"></div>
+                <div class="field"><label>Barangay</label><input placeholder="Barangay"></div>
+            </div>
+            <div class="form-row">
+                <div class="field"><label>Municipality/City</label><input placeholder="Municipality/City"></div>
+                <div class="field"><label>Province</label><input placeholder="Province"></div>
+                <div class="field"><label>Country</label><input placeholder="Country"></div>
+                <div class="field"><label>Zip Code</label><input placeholder="Zip Code"></div>
+            </div>
+        </div>
+
+        <!-- Permanent Address -->
+        <div class="address-block">
+            <div class="address-header">
+                <span>📌</span> Permanent Address
+                <span style="margin-left:auto; font-size:1rem;">
+                    <input type="checkbox" id="sameAddress"> <label for="sameAddress">Same with your Current Address? Yes</label>
+                </span>
+            </div>
+            <div class="form-row">
+                <div class="field"><label>House No./Street</label><input placeholder="House No."></div>
+                <div class="field"><label>Street Name</label><input placeholder="Street Name"></div>
+                <div class="field"><label>Barangay</label><input placeholder="Barangay"></div>
+            </div>
+            <div class="form-row">
+                <div class="field"><label>Municipality/City</label><input placeholder="Municipality/City"></div>
+                <div class="field"><label>Province</label><input placeholder="Province"></div>
+                <div class="field"><label>Country</label><input placeholder="Country"></div>
+                <div class="field"><label>Zip Code</label><input placeholder="Zip Code"></div>
+            </div>
+        </div>
+
+        <!-- PARENTS/GUARDIANS INFORMATION -->
+        <div class="section-title"><span>👪</span> PARENTS/GUARDIANS INFORMATION</div>
+
+        <table class="parents-table">
+            <tr>
+                <th>Father's Name</th>
+                <th>Mother's Maiden Name</th>
+                <th>Legal Guardian's Name</th>
+            </tr>
+            <tr>
+                <td><input placeholder="Last Name"><br><input placeholder="First Name"><br><input placeholder="Middle Name"><br><input placeholder="Contact Number"></td>
+                <td><input placeholder="Last Name"><br><input placeholder="First Name"><br><input placeholder="Middle Name"><br><input placeholder="Contact Number"></td>
+                <td><input placeholder="Last Name"><br><input placeholder="First Name"><br><input placeholder="Middle Name"><br><input placeholder="Contact Number"></td>
+            </tr>
+        </table>
+
+        <!-- For Returning Learner (Balik-Aral) and Those Who will Transfer/Move In -->
+        <div class="returning-section">
+            <div class="returning-title">🔄 For Returning Learner (Balik-Aral) and Those Who will Transfer/Move In</div>
+            <div class="form-row">
+                <div class="field"><label>Last Grade Level Completed</label><input placeholder="e.g., Grade 6"></div>
+                <div class="field"><label>Last School Year Completed</label><input placeholder="e.g., 2023-2024"></div>
+                <div class="field"><label>Last School Attended</label><input placeholder="School Name"></div>
+                <div class="field"><label>School ID</label><input placeholder="School ID"></div>
+            </div>
+        </div>
+
+        <!-- For Learners in Senior High School -->
+        <div class="section-title"><span>🏫</span> For Learners in Senior High School</div>
+
+        <div class="shs-row">
+            <div class="inline-item">
+                <input type="radio" name="sem"> 1st Semester
+            </div>
+            <div class="inline-item">
+                <input type="radio" name="sem"> 2nd Semester
+            </div>
+            <div class="field" style="flex:1">
+                <label>Track</label>
+                <input placeholder="e.g., Academic">
+            </div>
+            <div class="field" style="flex:1">
+                <label>Strand</label>
+                <input placeholder="e.g., HUMSS">
+            </div>
+        </div>
+
+        <!-- Learning Modalities -->
+        <div style="font-size:1.4rem; font-weight:bold; margin:20px 0 10px;">📚 If school will implement other distance learning modalities aside from face-to-face instruction, what would you prefer for your child?</div>
+        <div style="font-weight:600; margin-bottom:10px;">Choose all that apply:</div>
+        
+        <div class="modality-grid">
+            <div class="modality-item"><input type="checkbox"> Modular (Print)</div>
+            <div class="modality-item"><input type="checkbox"> Online</div>
+            <div class="modality-item"><input type="checkbox"> Radio-Based Instruction</div>
+            <div class="modality-item"><input type="checkbox"> Blended</div>
+            <div class="modality-item"><input type="checkbox"> Modular (Digital)</div>
+            <div class="modality-item"><input type="checkbox"> Educational Television</div>
+            <div class="modality-item"><input type="checkbox"> Homeschooling</div>
+        </div>
+
+        <!-- Signature Area -->
+        <div class="signature-area">
+            <div class="signature-text">
+                I hereby certify that the above information given are true and correct to the best of my knowledge and I allow the Department of Education to use my child's details to create and/or update his/her learner profile in the Learner Information System. The information herein shall be treated as confidential in compliance with the Data Privacy Act of 2012.
+            </div>
+            <div class="signature-lines">
+                <div class="signature-line">Signature Over Printed Name of Parent/Guardian</div>
+                <div class="signature-line">Date</div>
+            </div>
+        </div>
+
+        <!-- Disney-themed footer (subtle) -->
+        <div class="disney-footer">
+            <span>🏰</span> MAGIC OF LEARNING • DEPEd & DISNEY <span>🏰</span>
+        </div>
+    </div>
+</body>
+</html>
