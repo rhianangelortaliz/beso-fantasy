@@ -499,20 +499,23 @@
         }
         /* back button */
         .back-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 18px;
-            padding: 10px 22px;
+            gap: 5px;
+            padding: 6px 14px;
             background: linear-gradient(135deg, #8b5a2b, #c0a16b);
             color: white;
-            font-size: 14px;
+            font-size: 11px;
             font-weight: bold;
             text-decoration: none;
-            border-radius: 30px;
-            border: 2px solid #ffd700;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+            border-radius: 20px;
+            border: 1.5px solid #ffd700;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.35);
             transition: background 0.2s, transform 0.15s;
+            z-index: 9999;
         }
         .back-btn:hover {
             background: linear-gradient(135deg, #c0a16b, #8b5a2b);
@@ -521,7 +524,6 @@
     </style>
 </head>
 <body>
-    <a href="login.html" class="back-btn">&#8592; Back to Login</a>
     <div class="deped-form">
         <!-- Official DepEd Header with Logo -->
         <div class="deped-header">
@@ -825,5 +827,6 @@
             <span>🏰</span> MAGIC OF LEARNING • DEPEd & DISNEY <span>🏰</span>
         </div>
     </div>
+    <a href="login.html" class="back-btn">&#8592; Back to Login</a>
 </body>
 </html>
