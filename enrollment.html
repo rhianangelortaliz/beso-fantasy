@@ -497,9 +497,31 @@
             border-top: 2px solid #f0c27b;
             padding-top: 20px;
         }
+        /* back button */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 18px;
+            padding: 10px 22px;
+            background: linear-gradient(135deg, #8b5a2b, #c0a16b);
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 30px;
+            border: 2px solid #ffd700;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+            transition: background 0.2s, transform 0.15s;
+        }
+        .back-btn:hover {
+            background: linear-gradient(135deg, #c0a16b, #8b5a2b);
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body>
+    <a href="login.html" class="back-btn">&#8592; Back to Login</a>
     <div class="deped-form">
         <!-- Official DepEd Header with Logo -->
         <div class="deped-header">
