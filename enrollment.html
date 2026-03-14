@@ -834,9 +834,13 @@
                     letter-spacing: 1px;
                     transition: background 0.2s, transform 0.15s;
                 " onmouseover="this.style.background='linear-gradient(135deg,#2b5270,#1e3b5c)';this.style.transform='translateY(-2px)'"
-                   onmouseout="this.style.background='linear-gradient(135deg,#1e3b5c,#2b5270)';this.style.transform='none'">
+                   onmouseout="this.style.background='linear-gradient(135deg,#1e3b5c,#2b5270)';this.style.transform='none'"
+                   onclick="document.getElementById('thankyou-msg').style.display='block';this.disabled=true;this.style.opacity='0.6';">
                     ✨ SUBMIT ENROLLMENT FORM ✨
                 </button>
+                <div id="thankyou-msg" style="display:none; margin-top:20px; font-size:1.4rem; font-weight:bold; color:#1e3b5c;">
+                    🎉 Thank you! Your enrollment form has been submitted. 🎉
+                </div>
             </div>
         </div>
 
